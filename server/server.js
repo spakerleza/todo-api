@@ -2,6 +2,8 @@ const {ObjectID} = require("mongodb");
 var express = require("express");
 var bodyParser = require("body-parser");
 
+const port = ProcessingInstruction.env.PORT || 3000;
+
 var {Mongoose} = require("./db/mongoose");
 var {Todo} = require("./model/todo");
 var {User} = require("./model/user");
@@ -68,7 +70,7 @@ app.delete("/todos/:id", (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Started on port 3000");
 });
 
