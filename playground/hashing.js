@@ -6,7 +6,7 @@ var data = {
 };
 
 var token = jwt.sign(data, "123abc");
-console.log(token)
+console.log(token);
 var decoded = jwt.verify(token, "123abc");
 console.log("decoded", decoded);
 
