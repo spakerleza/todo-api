@@ -106,10 +106,23 @@ app.post("/users", (req, res) => {
     user.save().then( () => {
         return user.generateAuthToken();
     }).then( token => {
-        var show = _.pick(user, ["_id", "email"]);
-        res.header("x-auth", token).send(show);
+        res.header("x-auth", token).send(user);
     }).catch( e  => {
         res.status(400).send(e);
+    });
+});
+
+
+app.get("/users/me", (req, res) => {
+    var token = req.header("x-auth");
+
+    User.findByToken(token).then(user => {
+        if (!user) {
+            return Promise.reject();
+        }
+        res.send(user);
+    }).catch( e => {
+        res.status(401).send();
     });
 });
 
