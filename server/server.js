@@ -119,6 +119,26 @@ app.get("/users/me", authenticate, (req, res) => {
     res.send(req.user);
 });
 
+app.post("/users/login", (req, res) => {
+    var body = _.pick(req.body, ["email", "password"]);
+    User.findByCredentials(body.email, body.password).then(data => {
+        return data.generateAuthToken().then(token => {
+            res.header("x-auth", token).send({
+                data,
+                success: 1,
+                message: "Login authentication was successfull"
+            });
+        });
+        
+    }).catch(e => {
+        res.status(200).send({
+            success: 0,
+            message: "Invalid Email or Password"
+        });
+    });
+
+});
+
 app.listen(port, () => {
     console.log("Started on port 3000");
 });
