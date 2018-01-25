@@ -8,6 +8,9 @@
     "test-watch": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nodemon --exec 'npm test'",
     "start": "node server/server.js"
   },
+  "engines": {
+    "node": "9.4.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
